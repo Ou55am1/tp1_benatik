@@ -1,4 +1,4 @@
-package ma.emsi.benatik.tp0_jakartaee.resources;
+package ma.emsi.benatik.tp1_benatik.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

@@ -1,4 +1,4 @@
-package ma.emsi.benatik.tp0_jakartaee.jsf;
+package ma.emsi.benatik.tp1_benatik.jsf;
 
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
@@ -52,6 +52,8 @@ public class Bb implements Serializable {
      */
     private StringBuilder conversation = new StringBuilder();
 
+    private boolean debug;
+
     /**
      * Contexte JSF. Utilisé pour qu'un message d'erreur s'affiche dans le formulaire.
      */
@@ -87,6 +89,16 @@ public class Bb implements Serializable {
     public String getReponse() {
         return reponse;
     }
+
+    public boolean isDebug() {return debug;}
+
+    public void setDebug(boolean debug) {this.debug = debug;}
+
+    // Méthode pour basculer le mode debug
+    public void toggleDebug() {
+        this.setDebug(!isDebug());
+    }
+
 
     /**
      * setter indispensable pour le textarea.

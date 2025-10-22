@@ -53,6 +53,8 @@
                         </h:panelGroup>
                         <h:inputTextarea id="reponse" value="#{bb.reponse}" title="Réponse"
                                          cols="50" rows="15"/>
+                        <h:commandButton id="debugbutton" value="#{bb.debug?'Mode Normal':'Mode Debug'}"
+                                         action="#{bb.toggleDebug()}"/>
                     </h:panelGrid>
 
                 </h:panelGrid>

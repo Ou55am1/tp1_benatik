@@ -1,4 +1,4 @@
-package ma.emsi.benatik.tp0_jakartaee.jsf;
+package ma.emsi.benatik.tp1_benatik.jsf;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
