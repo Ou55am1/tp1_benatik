@@ -6,6 +6,8 @@ import jakarta.faces.model.SelectItem;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import ma.emsi.benatik.tp1_benatik.llm.JsonUtilPourGemini;
+import ma.emsi.benatik.tp1_benatik.llm.LlmInteraction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -52,13 +54,12 @@ public class Bb implements Serializable {
      */
     private StringBuilder conversation = new StringBuilder();
 
-    private boolean debug;
-
     /**
      * Contexte JSF. Utilisé pour qu'un message d'erreur s'affiche dans le formulaire.
      */
     @Inject
     private FacesContext facesContext;
+
 
     /**
      * Obligatoire pour un bean CDI (classe gérée par CDI), s'il y a un autre constructeur.
@@ -90,21 +91,6 @@ public class Bb implements Serializable {
         return reponse;
     }
 
-    public boolean isDebug() {return debug;}
-
-    public void setDebug(boolean debug) {this.debug = debug;}
-
-    // Méthode pour basculer le mode debug
-    public void toggleDebug() {
-        this.setDebug(!isDebug());
-    }
-
-
-    /**
-     * setter indispensable pour le textarea.
-     *
-     * @param reponse la réponse à la question.
-     */
     public void setReponse(String reponse) {
         this.reponse = reponse;
     }
@@ -116,6 +102,23 @@ public class Bb implements Serializable {
     public void setConversation(String conversation) {
         this.conversation = new StringBuilder(conversation);
     }
+
+    private boolean debug;
+
+    public boolean isDebug() {return debug;}
+
+    public void setDebug(boolean debug) {this.debug = debug;}
+
+    // Méthode pour basculer le mode debug
+    public void toggleDebug() {
+        this.setDebug(!isDebug());
+    }
+    @Inject
+    private JsonUtilPourGemini jsonUtil;
+
+    private String texteRequeteJson;
+    private String texteReponseJson;
+
 
     /**
      * Envoie la question au serveur.
@@ -133,31 +136,18 @@ public class Bb implements Serializable {
             facesContext.addMessage(null, message);
             return null;
         }
-        // Entourer la réponse avec "||".
-        this.reponse = "||";
-        // Si la conversation n'a pas encore commencé, ajouter le rôle système au début de la réponse
-        if (this.conversation.isEmpty()) {
-            // Ajouter le rôle système au début de la réponse
-            this.reponse += roleSysteme.toUpperCase(Locale.FRENCH) + "\n";
-            // Invalide le bouton pour changer le rôle système
-            this.roleSystemeChangeable = false;
+        try {
+            LlmInteraction interaction = jsonUtil.envoyerRequete(question);
+            this.reponse = interaction.reponseExtraite();
+            this.texteRequeteJson = interaction.questionJson();
+            this.texteReponseJson = interaction.reponseJson();
+        } catch (Exception e) {
+            FacesMessage message =
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Problème de connexion avec l'API du LLM",
+                            "Problème de connexion avec l'API du LLM" + e.getMessage());
+            facesContext.addMessage(null, message);
         }
-        
-        // ========== MON TRAITEMENT PERSONNALISÉ : TRANSFORMATION MIROIR ==========
-        String inverse = new StringBuilder(question).reverse().toString();
-
-        // Construction de la réponse
-        this.reponse += String.format(
-            "MIROIR MAGIQUE \n\n" +
-            "Original → %s\n" +
-            "Inversé  ← %s\n\n" +
-            "Astuce : Essayez avec des palindromes comme 'kayak' !",
-            question, inverse
-        );
-        this.reponse += "||";
-        //==========================================================================
-        
-        // La conversation contient l'historique des questions-réponses depuis le début.
         afficherConversation();
         return null;
     }

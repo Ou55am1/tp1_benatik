@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="tp1_benatik:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/tp1_benatik_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="tp1_benatik" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:jakarta:15.0.7" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="tp1_benatik/web/Web" />
+    </root>
+  </artifact>
+</component>

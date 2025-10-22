@@ -55,6 +55,13 @@
                                          cols="50" rows="15"/>
                         <h:commandButton id="debugbutton" value="#{bb.debug?'Mode Normal':'Mode Debug'}"
                                          action="#{bb.toggleDebug()}"/>
+                        <h:panelGroup id="debug" rendered="#{bb.debug}">
+                            <h:outputLabel value="JSON Requête :" />
+                            <h:inputTextarea value="#{bb.texteRequeteJson}" readonly="true" cols="80" rows="10"/>
+                            <h:outputLabel value="JSON Réponse :" />
+                            <h:inputTextarea value="#{bb.texteReponseJson}" readonly="true" cols="80" rows="10"/>
+                        </h:panelGroup>
+
                     </h:panelGrid>
 
                 </h:panelGrid>
