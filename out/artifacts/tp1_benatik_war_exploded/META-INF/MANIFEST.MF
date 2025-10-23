@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: HP ELITEBOOK 830 G5
+Build-Jdk: Oracle OpenJDK 21.0.8
+

@@ -19,28 +19,28 @@ import java.io.Serializable;
  */
 @Dependent
 public class LlmClientPourGemini implements Serializable {
-    // Clé pour l'API du LLM
+
     private final String key;
-    // Client REST. Facilite les échanges avec une API REST.
-    private Client clientRest; // Pour pouvoir le fermer
-    // Représente un endpoint de serveur REST
+    private final Client clientRest;
     private final WebTarget target;
 
     public LlmClientPourGemini() {
         this.key = System.getenv("GEMINI_KEY");
+        if (this.key == null || this.key.isBlank()) {
+            throw new IllegalStateException("❌ ERREUR : La variable d'environnement GEMINI_KEY est introuvable.");
+        }
+
         this.clientRest = ClientBuilder.newClient();
-        this.target = clientRest.target("A CHERCHER DANS LE COURS...");
+
+        this.target = clientRest.target(
+                "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=" + key
+        );
     }
 
-    /**
-     * Envoie une requête à l'API de Gemini.
-     * @param requestEntity le corps de la requête (en JSON).
-     * @return réponse REST de l'API (corps en JSON).
-     */
-    public Response envoyerRequete(Entity requestEntity) {
-        Invocation.Builder request = target.request(MediaType.APPLICATION_JSON_TYPE);
-        // Envoie la requête POST au LLM
-        return request.post(requestEntity);
+    public Response envoyerRequete(Entity<String> requestEntity) {
+        return target
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .post(requestEntity);
     }
 
     public void closeClient() {
