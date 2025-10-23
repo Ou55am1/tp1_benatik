@@ -12,9 +12,6 @@
     <list default="true" id="396b799f-87e6-47d9-8148-6e04c8ca570c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/jsf/Bb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/jsf/Bb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/JsonUtilPourGemini.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/JsonUtilPourGemini.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/LlmClientPourGemini.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/LlmClientPourGemini.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/RequeteException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/RequeteException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +165,7 @@
       <updated>1761169887111</updated>
       <workItem from="1761169888430" duration="11429000" />
       <workItem from="1761233647611" duration="732000" />
-      <workItem from="1761234463383" duration="7890000" />
+      <workItem from="1761234463383" duration="9055000" />
     </task>
     <servers />
   </component>

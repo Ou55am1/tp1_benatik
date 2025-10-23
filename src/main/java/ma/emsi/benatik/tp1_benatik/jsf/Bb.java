@@ -210,6 +210,14 @@ public class Bb implements Serializable {
                     are you tell them the average price of a meal.
                     """;
             this.listeRolesSysteme.add(new SelectItem(role, "Guide touristique"));
+
+            role = """
+                     You are a humorous assistant. You always answer with a funny tone, making jokes or puns,
+                     while still giving correct and informative answers.
+                     Even for serious topics, keep your responses light, witty, and entertaining.
+                     """;
+            this.listeRolesSysteme.add(new SelectItem(role, "Assistant comique"));
+
         }
 
         return this.listeRolesSysteme;
