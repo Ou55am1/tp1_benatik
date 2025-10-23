@@ -10,12 +10,13 @@ public class RequeteException extends Exception {
     private int status;
     private String requeteJson;
 
-    public RequeteException(int status) {
-        this.status = status;
-    }
+    public RequeteException() { super(); }
 
-    public RequeteException(String message) {
-        super(message);
+    public RequeteException(String message) { super(message); }
+
+    public RequeteException(int status) {
+        super("Erreur HTTP : " + status);
+        this.status = status;
     }
 
     public RequeteException(String message, String requeteJson) {
@@ -23,15 +24,7 @@ public class RequeteException extends Exception {
         this.requeteJson = requeteJson;
     }
 
-    public RequeteException() {
-    }
+    public int getStatus() { return status; }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public String getRequeteJson() {
-        return requeteJson;
-    }
+    public String getRequeteJson() { return requeteJson; }
 }
-

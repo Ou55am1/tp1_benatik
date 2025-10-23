@@ -27,7 +27,7 @@ public class LlmClientPourGemini implements Serializable {
     public LlmClientPourGemini() {
         this.key = System.getenv("GEMINI_KEY");
         if (this.key == null || this.key.isBlank()) {
-            throw new IllegalStateException("❌ ERREUR : La variable d'environnement GEMINI_KEY est introuvable.");
+            throw new IllegalStateException("ERREUR : La variable d'environnement GEMINI_KEY est introuvable.");
         }
 
         this.clientRest = ClientBuilder.newClient();

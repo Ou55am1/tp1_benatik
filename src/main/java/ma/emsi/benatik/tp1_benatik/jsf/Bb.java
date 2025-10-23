@@ -103,7 +103,7 @@ public class Bb implements Serializable {
         this.conversation = new StringBuilder(conversation);
     }
 
-    private boolean debug;
+    private boolean debug= false;
 
     public boolean isDebug() {return debug;}
 
@@ -119,6 +119,22 @@ public class Bb implements Serializable {
     private String texteRequeteJson;
     private String texteReponseJson;
 
+    public String getTexteRequeteJson() {
+        return texteRequeteJson;
+    }
+
+    public void setTexteRequeteJson(String texteRequeteJson) {
+        this.texteRequeteJson = texteRequeteJson;
+    }
+
+    public String getTexteReponseJson() {
+        return texteReponseJson;
+    }
+
+    public void setTexteReponseJson(String texteReponseJson) {
+        this.texteReponseJson = texteReponseJson;
+    }
+
 
     /**
      * Envoie la question au serveur.
@@ -130,46 +146,42 @@ public class Bb implements Serializable {
      */
     public String envoyer() {
         if (question == null || question.isBlank()) {
-            // Erreur ! Le formulaire va être réaffiché en réponse à la requête POST, avec un message d'erreur.
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Texte question vide", "Il manque le texte de la question");
             facesContext.addMessage(null, message);
             return null;
         }
+
         try {
+            if (conversation.isEmpty()) {
+                jsonUtil.setSystemRole(roleSysteme);
+                this.roleSystemeChangeable = false;
+            }
+
             LlmInteraction interaction = jsonUtil.envoyerRequete(question);
             this.reponse = interaction.reponseExtraite();
             this.texteRequeteJson = interaction.questionJson();
             this.texteReponseJson = interaction.reponseJson();
+
+            afficherConversation();
+
         } catch (Exception e) {
-            FacesMessage message =
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            "Problème de connexion avec l'API du LLM",
-                            "Problème de connexion avec l'API du LLM" + e.getMessage());
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Problème de connexion avec l'API du LLM",
+                    "Problème : " + e.getMessage());
             facesContext.addMessage(null, message);
         }
-        afficherConversation();
+
         return null;
     }
 
-    /**
-     * Pour un nouveau chat.
-     * Termine la portée view en retournant "index" (la page index.xhtml sera affichée après le traitement
-     * effectué pour construire la réponse) et pas null. null aurait indiqué de rester dans la même page (index.xhtml)
-     * sans changer de vue.
-     * Le fait de changer de vue va faire supprimer l'instance en cours du backing bean par CDI et donc on reprend
-     * tout comme au début puisqu'une nouvelle instance du backing va être utilisée par la page index.xhtml.
-     * @return "index"
-     */
     public String nouveauChat() {
         return "index";
     }
 
-    /**
-     * Pour afficher la conversation dans le textArea de la page JSF.
-     */
     private void afficherConversation() {
-        this.conversation.append("== User:\n").append(question).append("\n== Serveur:\n").append(reponse).append("\n");
+        this.conversation.append("== User:\n").append(question)
+                .append("\n== Serveur:\n").append(reponse).append("\n");
     }
 
     public List<SelectItem> getRolesSysteme() {

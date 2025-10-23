@@ -3,7 +3,6 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="tp1_benatik:war" />
-      <artifact name="tp1_benatik:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -12,8 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="396b799f-87e6-47d9-8148-6e04c8ca570c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/jsf/Bb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/jsf/Bb.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/JsonUtilPourGemini.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/JsonUtilPourGemini.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/LlmClientPourGemini.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/LlmClientPourGemini.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/RequeteException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ma/emsi/benatik/tp1_benatik/llm/RequeteException.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +59,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/HP ELITEBOOK 830 G5/Desktop/applic/dd/tp1_benatik",
+    "last_opened_file_path": "C:/Users/HP ELITEBOOK 830 G5/Desktop/applic/dd/tp1_benatik/src/main/webapp",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,6 +72,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HP ELITEBOOK 830 G5\Desktop\applic\dd\tp1_benatik\src\main\webapp" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="tp1" type="PayaraServerConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="Payara 6.2025.9" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -162,7 +168,7 @@
       <updated>1761169887111</updated>
       <workItem from="1761169888430" duration="11429000" />
       <workItem from="1761233647611" duration="732000" />
-      <workItem from="1761234463383" duration="3171000" />
+      <workItem from="1761234463383" duration="7890000" />
     </task>
     <servers />
   </component>
