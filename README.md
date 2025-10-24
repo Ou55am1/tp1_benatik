@@ -49,16 +49,16 @@ Ce TP transforme l'application du TP0 en une véritable interface conversationne
 
 | Technologie | Version | Usage |
 |-------------|---------|-------|
-| **Java** | 17 | Langage de programmation |
+| **Java** | 21 | Langage de programmation |
 | **Jakarta EE** | 10 | Framework d'entreprise |
-| **JSF (Jakarta Faces)** | 4.0 | Interface utilisateur web |
-| **CDI** | 4.0 | Injection de dépendances |
-| **Jakarta JSON Processing** | 2.1 | Manipulation de JSON |
-| **Jakarta REST Client** | 3.1 | Client HTTP pour API REST |
+| **JSF (Jakarta Faces)** | 4.0.1 | Interface utilisateur web |
+| **CDI** | 4.0.1 | Injection de dépendances |
+| **Jakarta JSON Processing** | 2.1.0 | Manipulation de JSON |
+| **Jakarta REST Client** | 3.1.0 | Client HTTP pour API REST |
 | **PrimeFaces** | 15.0.7 | Composants UI avancés |
-| **Maven** | 3.3.2 | Gestion de projet |
+| **Maven** | 3.9.9 | Gestion de projet |
 | **Payara Server** | 6.2025.9 | Serveur d'application |
-| **Gemini API** | 1.5 | LLM de Google |
+| **Gemini API** | 2.5 | LLM de Google |
 | **Git/GitHub** | - | Versionnement |
 
 ---
@@ -155,7 +155,7 @@ asadmin --port 4849 deploy --force=true "[CHEMIN_COMPLET]/tp1_jakartaee/target/t
 #### **5. Accéder à l'application**
 
 ```
-http://localhost:9090/tp1_jakartaee/
+http://localhost:9090/tp1_benatik/
 ```
 
 ---
@@ -230,16 +230,6 @@ this.texteRequeteJson = interaction.questionJson();
 this.texteReponseJson = interaction.reponseJson();
 ```
 
-**Équivalent sans record (plus verbeux) :**
-```java
-public class LlmInteraction {
-    private final String questionJson;
-    private final String reponseJson;
-    private final String reponseExtraite;
-    
-    // Constructeur, getters, equals(), hashCode(), toString()...
-}
-```
 
 ---
 
@@ -247,25 +237,42 @@ public class LlmInteraction {
 
 **Création d'une requête JSON :**
 ```java
-JsonObject requete = Json.createObjectBuilder()
-    .add("contents", Json.createArrayBuilder()
-        .add(Json.createObjectBuilder()
-            .add("parts", Json.createArrayBuilder()
-                .add(Json.createObjectBuilder()
-                    .add("text", question)))))
-    .build();
+private String creerRequeteJson(String systemRole, String question) {
+    JsonArray contents = Json.createArrayBuilder()
+            .add(Json.createObjectBuilder()
+                    .add("role", "user")
+                    .add("parts", Json.createArrayBuilder()
+                            .add(Json.createObjectBuilder()
+                                    .add("text", systemRole + "\n" + question))))
+            .build();
+
+    this.requeteJson = Json.createObjectBuilder()
+            .add("contents", contents)
+            .build();
+
+    return this.requeteJson.toString();
+}
+
 ```
 
 **Extraction de la réponse :**
 ```java
-JsonObject reponseObj = Json.createReader(new StringReader(reponseJson)).readObject();
-String texte = reponseObj
-    .getJsonArray("candidates")
-    .getJsonObject(0)
-    .getJsonObject("content")
-    .getJsonArray("parts")
-    .getJsonObject(0)
-    .getString("text");
+private String extractReponse(String json) {
+    try (JsonReader jsonReader = Json.createReader(new StringReader(json))) {
+        JsonObject jsonObject = jsonReader.readObject();
+        JsonObject content = jsonObject
+                .getJsonArray("candidates")
+                .getJsonObject(0)
+                .getJsonObject("content");
+
+        // Ajouter la réponse dans l'historique JSON (conversation)
+        this.requeteJson = this.pointer.add(this.requeteJson, content);
+
+        // Extraire le texte de la réponse
+        return content.getJsonArray("parts").getJsonObject(0).getString("text");
+    }
+}
+
 ```
 
 ---
@@ -297,7 +304,7 @@ if (apiKey == null || apiKey.isEmpty()) {
 ### **Endpoint utilisé**
 
 ```
-POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}
+POST https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key={API_KEY}
 ```
 
 ### **Format de la requête**
@@ -375,9 +382,11 @@ Affiche la réponse brute de l'API :
 
 **Code du bouton debug :**
 ```xhtml
-<h:commandButton id="debugbutton" 
-                 value="#{bb.debug?'Mode Normal':'Mode Debug'}"
-                 action="#{bb.toggleDebug()}"/>
+<h:commandButton id="debugbutton"
+                 value="#{bb.debug ? 'Mode Normal' : 'Mode Debug'}"
+                 action="#{bb.toggleDebug()}"
+                 style="margin-top:10px; background-color:#1976d2; color:white; border:none; padding:8px 16px; border-radius:6px;" />
+
 ```
 
 **Méthode dans le backing bean :**
@@ -587,6 +596,7 @@ L'assistant comique rend l'apprentissage plus engageant tout en délivrant des i
 - [Records Java](https://docs.oracle.com/en/java/javase/17/language/records.html)
 - [REST Client Jakarta](https://jakarta.ee/specifications/restful-ws/)
 - [Bonnes pratiques sécurité API](https://owasp.org/www-project-api-security/)
+- [Supports de cours](http://richard.grin.free.fr/emsi/casablanca-ia/supports/index.html)
 
 ---
 
