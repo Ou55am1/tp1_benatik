@@ -596,7 +596,7 @@ L'assistant comique rend l'apprentissage plus engageant tout en délivrant des i
 - [Records Java](https://docs.oracle.com/en/java/javase/17/language/records.html)
 - [REST Client Jakarta](https://jakarta.ee/specifications/restful-ws/)
 - [Bonnes pratiques sécurité API](https://owasp.org/www-project-api-security/)
-- [Supports de cours](http://richard.grin.free.fr/emsi/casablanca-ia/supports/index.html)
+- [Supports de cours (M. Richard Grin)](http://richard.grin.free.fr/emsi/casablanca-ia/supports/index.html)
 
 ---
 
